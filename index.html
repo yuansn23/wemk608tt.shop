@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <title>2025</title>
+    <style>
+        :root {
+            --tech-yellow: #ffd60a;
+            --tech-blue: #003566;
+            --deep-ocean: #0c4a6e;
+            --neon-cyan: #0077b6;
+            --electric-orange: #ff6d00;
+            --grid-color: rgba(0, 119, 182, 0.1);
+            --surface-dark: #001d3d;
+            --accent-glow: #00f5ff;
+            --warning-amber: #ffb300;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .tech-layout {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--deep-ocean);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .tech-layout::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 119, 182, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 119, 182, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .tech-layout::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, var(--tech-yellow) 0px, transparent 2px),
+                radial-gradient(circle at 80% 80%, var(--electric-orange) 0px, transparent 2px),
+                radial-gradient(circle at 30% 70%, var(--accent-glow) 0px, transparent 1px),
+                radial-gradient(circle at 70% 30%, var(--neon-cyan) 0px, transparent 1px);
+            animation: floating-dots 8s linear infinite;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        @keyframes floating-dots {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-20px) rotate(360deg); }
+        }
+
+        .main-viewport {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-banner {
+            padding: 30px 0 20px;
+            text-align: center;
+            background: var(--deep-ocean);
+            border-radius: 25px;
+            margin: 20px 0;
+            border: 2px solid var(--tech-yellow);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .ai-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--tech-yellow);
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px rgba(255, 214, 10, 0.5);
+        }
+
+        .ai-description {
+            font-size: 20px;
+            color: #ffffff;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .input-section {
+            background: rgba(0, 53, 102, 0.4);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 2px solid rgba(255, 214, 10, 0.3);
+            backdrop-filter: blur(15px);
+        }
+
+        .input-label {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--tech-yellow);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .stock-input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 18px;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .stock-input:focus {
+            outline: none;
+            border-color: var(--tech-yellow);
+            box-shadow: 0 0 20px rgba(255, 214, 10, 0.4);
+        }
+
+        .stock-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 20px;
+            font-weight: 800;
+            background: var(--electric-orange);
+            color: #ffffff;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: btn-glow 2s ease-in-out infinite;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 3px solid var(--tech-yellow);
+            box-shadow: 0 10px 30px rgba(255, 109, 0, 0.4);
+        }
+
+        @keyframes btn-glow {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.03);
+            }
+        }
+
+        .generate-btn:hover {
+            background: #ff8500;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 109, 0, 0.6);
+        }
+
+        .hero-visual {
+            margin: 20px 0 0;
+            position: relative;
+        }
+
+        .impact-image {
+            width: 100%;
+            max-width: 600px;
+            height: 350px;
+            background-image: url('img/4.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            border: 3px solid var(--accent-glow);
+            box-shadow: 
+                0 20px 60px rgba(0, 245, 255, 0.3),
+                0 0 50px rgba(255, 214, 10, 0.2);
+            animation: image-pulse 4s ease-in-out infinite;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        @keyframes image-pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 
+                    0 20px 60px rgba(0, 245, 255, 0.3),
+                    0 0 50px rgba(255, 214, 10, 0.2);
+            }
+            50% {
+                transform: scale(1.02);
+                box-shadow: 
+                    0 25px 80px rgba(0, 245, 255, 0.5),
+                    0 0 70px rgba(255, 214, 10, 0.4);
+            }
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-modal {
+            background: linear-gradient(135deg, var(--surface-dark), var(--tech-blue));
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid var(--tech-yellow);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .progress-text {
+            font-size: 18px;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--tech-yellow), var(--neon-cyan));
+            width: 0%;
+            animation: progress-loading 2s ease-in-out;
+        }
+
+        @keyframes progress-loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .result-modal {
+            background: linear-gradient(135deg, var(--surface-dark), var(--tech-blue));
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid var(--accent-glow);
+            box-shadow: 0 20px 60px rgba(0, 245, 255, 0.3);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .result-title {
+            font-size: 24px;
+            color: var(--tech-yellow);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .result-description {
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .line-btn {
+            background: #00c851;
+            color: #ffffff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+        }
+
+        .line-btn:hover {
+            background: #00ff00;
+            transform: translateY(-2px);
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 15px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .risk-warning {
+            background: rgba(0, 29, 61, 0.8);
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 20px;
+            border: 2px solid var(--warning-amber);
+            backdrop-filter: blur(10px);
+        }
+
+        .warning-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--tech-yellow);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .warning-item {
+            font-size: 14px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .footer-nav {
+            text-align: center;
+            padding: 25px 20px;
+            background: rgba(0, 53, 102, 0.6);
+            border-top: 2px solid var(--neon-cyan);
+            margin-top: 20px;
+        }
+
+        .nav-link {
+            color: var(--tech-yellow);
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-glow);
+            border-bottom-color: var(--accent-glow);
+        }
+
+        @media (max-width: 768px) {
+            .ai-title {
+                font-size: 32px;
+            }
+            
+            .ai-description {
+                font-size: 18px;
+            }
+            
+            .hero-banner {
+                padding: 25px 15px 15px;
+                margin: 15px 0;
+            }
+            
+            .input-section {
+                padding: 20px;
+                margin: 15px 0;
+            }
+            
+            .input-label {
+                font-size: 20px;
+            }
+            
+            .impact-image {
+                height: 280px;
+            }
+            
+            .risk-warning {
+                margin: 15px 0;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-viewport {
+                padding: 0 10px;
+            }
+            
+            .ai-title {
+                font-size: 26px;
+            }
+            
+            .ai-description {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+            
+            .hero-banner {
+                padding: 20px 15px 10px;
+                margin: 10px 0;
+            }
+            
+            .input-section {
+                padding: 18px 15px;
+                margin: 10px 0;
+            }
+            
+            .input-label {
+                font-size: 18px;
+                margin-bottom: 12px;
+            }
+            
+            .stock-input {
+                padding: 12px 15px;
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+            
+            .generate-btn {
+                padding: 15px;
+                font-size: 18px;
+            }
+            
+            .impact-image {
+                height: 220px;
+            }
+            
+            .progress-modal,
+            .result-modal {
+                padding: 25px 20px;
+                margin: 0 10px;
+            }
+            
+            .progress-text {
+                font-size: 16px;
+            }
+            
+            .result-title {
+                font-size: 20px;
+            }
+            
+            .result-description {
+                font-size: 14px;
+            }
+            
+            .line-btn,
+            .close-btn {
+                padding: 12px 20px;
+                font-size: 16px;
+                margin: 5px;
+                display: block;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .risk-warning {
+                margin: 10px 0;
+                padding: 18px 15px;
+            }
+            
+            .warning-title {
+                font-size: 18px;
+            }
+            
+            .warning-item {
+                font-size: 13px;
+                margin-bottom: 8px;
+            }
+            
+            .footer-nav {
+                padding: 20px 15px;
+            }
+            
+            .nav-link {
+                display: block;
+                margin: 8px 0;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body class="tech-layout">
+    <div class="main-viewport">
+        <section class="hero-banner">
+            <h1 class="ai-title">AI株式分析アシスタント</h1>
+            <p class="ai-description">
+                当社のAIツールは、高度な機械学習モデルを使用して、市場データを効率的に分析し、多次元の市場分析と洞察を提供し、市場動向をより深く理解するのに役立ちます。
+            </p>
+            
+            <section class="input-section">
+                <div class="input-label">株式コードまたは銘柄名を入力し、AI分析レポートを取得</div>
+                <input type="text" class="stock-input" placeholder="例：7203 トヨタ自動車">
+                <button class="generate-btn" onclick="startAnalysis()">👉 無料で分析を生成</button>
+            </section>
+            
+            <div class="hero-visual">
+                <div class="impact-image"></div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal-overlay" id="progressModal">
+        <div class="progress-modal">
+            <div class="progress-text">AIシステムが分析中：市場分析、最新ニュース分析、履歴データ分析を統合しています</div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="resultModal">
+        <div class="result-modal">
+            <div class="result-title">分析レポートが完成しました</div>
+            <div class="result-description">レポートを受け取るには、下記のLINEリンクをクリックしてください。</div>
+            <button class="line-btn" onclick="ote()">LINEでレポート受取</button>
+            <button class="close-btn" onclick="closeModal()">閉じる</button>
+        </div>
+    </div>
+
+    <aside class="risk-warning">
+        <div class="warning-title">⚠️ 重要リスク提示</div>
+        <div class="warning-item">• 本サービスは一般市場情報のみを提供し、いかなる投資アドバイスや推奨も構成しません。</div>
+        <div class="warning-item">• 金融市場にはリスクが存在し、投資元本の一部または全部を損失する可能性があります。すべての表示例は過去のデータ分析であり、将来の収益に対するいかなる保証も構成しません。</div>
+        <div class="warning-item">• 投資者は自身のリスク許容能力に基づいて慎重に決定すべきです。すべての情報は客観的事実陳述であり、投資アドバイスを構成しません。</div>
+        <div class="warning-item">• 本AI分析ツールは過去のデータとアルゴリズムモデルに基づく確率計算のみを提供し、いかなる投資アドバイスも構成しません。</div>
+        <div class="warning-item">• 過去の実績は将来の成果を示すものではなく、実際の収益はAI予測値を下回ったり上回ったりする可能性があります。</div>
+    </aside>
+
+    <footer class="footer-nav">
+        <a href="privacy.html" target="_blank" class="nav-link">プライバシーポリシー</a>
+        <a href="terms.html" target="_blank" class="nav-link">利用規約</a>
+    </footer>
+
+    <script>
+        function startAnalysis() {
+            const progressModal = document.getElementById('progressModal');
+            const resultModal = document.getElementById('resultModal');
+            
+            progressModal.style.display = 'flex';
+            
+            setTimeout(() => {
+                progressModal.style.display = 'none';
+                resultModal.style.display = 'flex';
+            }, 2000);
+        }
+
+        function closeModal() {
+            document.getElementById('resultModal').style.display = 'none';
+        }
+
+        function ote() {
+            window.open('https://line.me/', '_blank');
+        }
+
+        document.addEventListener('touchmove', function(event) {
+            if (event.scale !== 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
